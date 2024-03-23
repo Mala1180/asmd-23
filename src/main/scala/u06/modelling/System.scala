@@ -8,12 +8,13 @@ trait System[S]:
 object System:
 
   // The most general case, an intensional one
-  def ofPartialFunction[S](f: PartialFunction[S,Set[S]]): System[S] =
-    s => f.applyOrElse(s, x => Set[S]())
+  def ofPartialFunction[S](f: PartialFunction[S,Set[S]]): System[S] = s =>
+    f.applyOrElse(s, x => Set[S]())
 
   // Extensional specification
-  def ofRelation[S](rel: Set[(S,S)]): System[S] =
-    ofPartialFunction(s => rel collect {case (`s`, s2) => s2})
+  def ofRelation[S](rel: Set[(S,S)]): System[S] = ofPartialFunction: s =>
+    rel collect:
+      case (`s`, s2) => s2
 
   // Extensional with varargs
   def ofTransitions[S](rel: (S,S)*): System[S] =
