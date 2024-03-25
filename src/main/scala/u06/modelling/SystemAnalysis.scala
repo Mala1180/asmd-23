@@ -3,7 +3,7 @@ package pc.modelling
 // Basical analysis helpers
 object SystemAnalysis:
 
-  opaque type Path[S] = List[S]
+  type Path[S] = List[S]
 
   extension [S](system: System[S])
 

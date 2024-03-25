@@ -6,7 +6,7 @@ import pc.utils.MSet
 object PNMutualExclusion:
 
   enum Place:
-    case N,T,C
+    case N, T, C
     
   export Place.*
   export pc.modelling.PetriNet.*

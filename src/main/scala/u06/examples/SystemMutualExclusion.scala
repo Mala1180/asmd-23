@@ -5,7 +5,7 @@ import pc.modelling.System
 object SystemMutualExclusion:
 
   enum State:
-    case N,T,C
+    case N, T, C
 
   export State.*
   export pc.modelling.SystemAnalysis.*
@@ -19,7 +19,7 @@ object SystemMutualExclusion:
 
   // System specification, try to capture the abstraction a bit
   def mutualExclusion: System[States] = l =>
-    move(l)(N,T) ++ move(l)(C,N) ++ (if (l.contains(C)) Set() else move(l)(T,C))
+    move(l)(N, T) ++ move(l)(C, N) ++ (if (l.contains(C)) Set() else move(l)(T, C))
 
 @main def mainSystemMutualExclusion() =
   import SystemMutualExclusion.*
