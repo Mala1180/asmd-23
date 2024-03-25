@@ -15,8 +15,7 @@ class SystemChannelSpec extends AnyFunSuite:
     channel.next(SEND) shouldBe Set(SEND, DONE, FAIL)
 
   test("System Channel should properly generate paths"):
-    channel.paths(IDLE,3) should contain:
+    channel.paths(IDLE, 3) should contain:
       List(IDLE, SEND, SEND)
-
-    channel.completePathsUpToDepth(IDLE,4) should contain theSameElementsAs:
+    channel.completePathsUpToDepth(IDLE, 4) should contain theSameElementsAs:
       List(List(IDLE, SEND, DONE), List(IDLE, SEND, SEND, DONE))
