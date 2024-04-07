@@ -1,4 +1,4 @@
-package u06.utils
+package u07.utils
 
 // A multiset datatype
 trait MSet[A] extends (A => Int):
@@ -21,9 +21,10 @@ object MSet:
 
   // Hidden reference implementation
   private case class MSetImpl[A](asMap: Map[A,Int]) extends MSet[A]:
-    def this(list: List[A]) = this(list.groupBy(a => a).map((a,n) => (a, n.size)))
+    def this(list: List[A]) =
+      this(list.groupBy(a=>a).map{case (a,n) => (a, n.size)})
     override val asList =
-      asMap.toList.flatMap((a,n) => List.fill(n)(a))
+      asMap.toList.flatMap{case (a,n) => List.fill(n)(a)}
 
     override def apply(v1: A) = asMap.getOrElse(v1,0)
     override def union(m: MSet[A]) = new MSetImpl[A](asList ++ m.asList)

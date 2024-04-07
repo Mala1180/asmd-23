@@ -1,6 +1,6 @@
-package u06.modelling
+package u07.modelling
 
-import u06.utils.MSet
+import u07.utils.MSet
 
 object PetriNet:
   // pre-conditions, effects, inhibition

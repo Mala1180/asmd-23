@@ -1,6 +1,6 @@
-package u06.examples
+package u07.examples
 
-import u06.modelling.System
+import u07.modelling.System
 
 object SystemChannel:
 
@@ -9,7 +9,8 @@ object SystemChannel:
     case IDLE, SEND, DONE, FAIL
 
   // enabling analysis through this object
-  export u06.modelling.SystemAnalysis.*
+  export u07.modelling.SystemAnalysis.*
+  export u07.modelling.CTMC.*
   export State.*
 
   // System specification

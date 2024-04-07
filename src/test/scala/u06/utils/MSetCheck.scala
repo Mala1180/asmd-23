@@ -1,4 +1,4 @@
-package pc.utils
+package u06.utils
 
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Prop.forAll

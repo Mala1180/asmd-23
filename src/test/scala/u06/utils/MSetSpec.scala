@@ -1,4 +1,4 @@
-package pc.utils
+package u06.utils
 
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers.*

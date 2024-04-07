@@ -1,4 +1,4 @@
-package pc.modelling
+package u06.modelling
 
 // The definition of a Rewrite System, as a function: S => Set[S]
 trait System[S]:

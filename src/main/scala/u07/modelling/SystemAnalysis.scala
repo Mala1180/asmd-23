@@ -1,4 +1,4 @@
-package u06.modelling
+package u07.modelling
 
 // Basical analysis helpers
 object SystemAnalysis:
@@ -6,7 +6,6 @@ object SystemAnalysis:
   type Path[S] = List[S]
 
   extension [S](system: System[S])
-
     def normalForm(s: S): Boolean = system.next(s).isEmpty
 
     def complete(p: Path[S]): Boolean = normalForm(p.last)
@@ -23,4 +22,4 @@ object SystemAnalysis:
 
     // complete paths with length '<= depth' (could be optimised)
     def completePathsUpToDepth(s: S, depth:Int): Seq[Path[S]] =
-      (1 to depth).to(LazyList) flatMap (paths(s, _)) filter (complete(_))
+      (1 to depth).to(LazyList) flatMap (paths(s,_)) filter (complete(_))

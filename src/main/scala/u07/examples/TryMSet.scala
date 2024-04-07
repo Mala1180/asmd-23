@@ -1,6 +1,6 @@
-package u06.examples
+package u07.examples
 
-import u06.utils.MSet
+import u07.utils.MSet
 
 // Some simple client code.. also check MSetSpec and MSetCheck
 object TryMSet extends App:
