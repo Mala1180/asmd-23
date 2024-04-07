@@ -18,6 +18,7 @@ object StochasticMutualExclusion extends App:
     Trn(MSet(T), m => m(T),  MSet(C),  MSet(C)),
     Trn(MSet(C), m => 2.0,   MSet(),   MSet()))
 
-  println(toCTMC(spn).newSimulationTrace(MSet(N,N,N,N),new Random)
-                    .take(20)
-                    .toList.mkString("\n"))
+  println:
+    toCTMC(spn).newSimulationTrace(MSet(N,N,N,N),new Random)
+      .take(20)
+      .toList.mkString("\n")

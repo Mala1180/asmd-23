@@ -7,8 +7,9 @@ object Stochastics:
   given Random = new Random()
 
   // (p1,a1),...,(pn,an) --> (p1,a1),(p1+p2,a2),..,(p1+..+pn,an)
-  def cumulative[A](l: List[(Double,A)]): List[(Double,A)] =
-    l.tail.scanLeft(l.head){case ((r, _), (r2, a2)) => (r + r2, a2)}
+  def cumulative[A](l: List[(Double, A)]): List[(Double, A)] =
+    l.tail.scanLeft(l.head):
+      case ((r, _), (r2, a2)) => (r + r2, a2)
 
   // (p1,a1),...,(pn,an) --> ai, selected randomly and fairly
   def draw[A](cumulativeList: List[(Double,A)])(using rnd: Random): A =
@@ -20,13 +21,4 @@ object Stochastics:
                    (using rnd: Random): Map[A,Int] =
     (1 to size).map(i => draw(cumulative(choices.toList)))
                 .groupBy(identity).view.mapValues(_.size).toMap
-
-/*
-def uniformDraw[A](actions: Set[A])(using rnd: Random): A =
-  actions.toList(random.nextInt(actions.size))
-
-def drawFiltered(filter: Double => Boolean)(implicit rnd: Random = random): Boolean = {
-  filter(rnd.nextDouble())
-}
-*/
 

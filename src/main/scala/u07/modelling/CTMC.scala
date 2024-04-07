@@ -15,7 +15,7 @@ object CTMC:
   case class Transition[S](state: S, action: Action[S])
 
   def ofFunction[S](f: PartialFunction[S, Set[Action[S]]]): CTMC[S] =
-    s => f.applyOrElse(s, (x: S) => Set[Action[S]]())
+    s => f.applyOrElse(s, x => Set[Action[S]]())
 
   def ofRelation[S](rel: Set[Transition[S]]): CTMC[S] =
     ofFunction(s => rel filter (_.state == s) map (_.action))

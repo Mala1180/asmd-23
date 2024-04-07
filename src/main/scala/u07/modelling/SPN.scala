@@ -8,7 +8,7 @@ object SPN:
   // pre-conditions, rate, effects, inhibition
   case class Trn[P](
     cond: MSet[P],
-    rate: MSet[P]=>Double,
+    rate: MSet[P] => Double,
     eff: MSet[P],
     inh: MSet[P])
 
