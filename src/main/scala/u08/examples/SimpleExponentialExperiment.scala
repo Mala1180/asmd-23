@@ -26,7 +26,6 @@ object SimpleExponentialExperiment extends App with de.sciss.chart.module.Charti
       p = simpleAutomaton.experiment(
         runs = 19000,
         prop = simpleAutomaton.eventually(_ == DONE),
-        rnd = new Random(),
         s0 = IDLE,
         timeBound = t.toDouble)
     yield (t, p)

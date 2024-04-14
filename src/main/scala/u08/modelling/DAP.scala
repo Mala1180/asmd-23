@@ -6,7 +6,6 @@ import scala.u08.utils.{Grids, MSet}
 
 // modules defining the concept of Distributed Asynchronous stochastic Petri net
 object DAP:
-
   // Rule of the net: pre --rateExp--> eff | ^msg
   case class Rule[P](pre: MSet[P], rateExp: MSet[P] => Double, eff: MSet[P], msg: MSet[P])
 
@@ -17,11 +16,15 @@ object DAP:
   case class Token[ID, P](id: ID, p: P)
 
   // state of the network at a given time, with neighbouring as a map
-  case class State[ID, P](tokens: MSet[Token[ID, P]], messages: MSet[Token[ID, P]], neighbours: Map[ID, Set[ID]])
+  case class State[ID, P](
+    tokens: MSet[Token[ID, P]],
+    messages: MSet[Token[ID, P]],
+    neighbours: Map[ID, Set[ID]])
 
   // Local facility to extract the marking of a node
   def localTokens[ID, P](tokens: MSet[Token[ID, P]], id: ID): MSet[P] =
-    tokens.collect { case Token(`id`, t) => t } // quotes are needed to match an existing variable
+    tokens.collect:
+      case Token(`id`, t) => t  // quotes are needed to match an existing variable
 
   // Here's the implementation of operational semantics
   def toPartialFunction[ID, P](spn: DAP[P]): PartialFunction[State[ID, P], Set[Action[State[ID, P]]]] =

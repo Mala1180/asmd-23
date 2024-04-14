@@ -1,13 +1,10 @@
 package u08.examples
+
 import scala.math.BigDecimal.double2bigDecimal
-
-import java.util.Random
 import scala.u08.utils.Time
-
 
 object StochasticChannelExperiment extends App with de.sciss.chart.module.Charting:
   import u08.modelling.CTMCExperiment.*
-  import u08.modelling.CTMCSimulation.*
   import u08.examples.StochasticChannel.*
 
   val data =
@@ -16,7 +13,6 @@ object StochasticChannelExperiment extends App with de.sciss.chart.module.Charti
       p = stocChannel.experiment(
         runs = 26000,
         prop = stocChannel.eventually(_ == DONE),
-        rnd = new Random(),
         s0 = IDLE,
       timeBound = t.toDouble)
     yield (t, p)
