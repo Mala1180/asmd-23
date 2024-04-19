@@ -1,4 +1,4 @@
-package u06.examples
+package scala.u06.examples
 
 import u06.utils.MSet
 

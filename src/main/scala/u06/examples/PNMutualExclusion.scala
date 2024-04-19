@@ -1,6 +1,7 @@
-package u06.examples
+package scala.u06.examples
 
 export u06.modelling.PetriNet
+import scala.u06.modelling.*
 import u06.utils.MSet
 
 object PNMutualExclusion:
@@ -14,13 +15,13 @@ object PNMutualExclusion:
   export u06.utils.MSet
 
   // DSL-like specification of a Petri Net
-  def pnME = PetriNet[Place](
+  def pnME: System[Marking[Place]] = PetriNet[Place](
     MSet(N) ~~> MSet(T),
     MSet(T) ~~> MSet(C) ^^^ MSet(C),
     MSet(C) ~~> MSet()
   ).toSystem
 
-@main def mainPNMutualExclusion =
+@main def mainPNMutualExclusion(): Unit =
   import PNMutualExclusion.*
   // example usage
   println(pnME.paths(MSet(N,N),7).toList.mkString("\n"))

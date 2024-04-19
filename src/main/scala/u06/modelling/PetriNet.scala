@@ -1,5 +1,6 @@
-package u06.modelling
+package scala.u06.modelling
 
+import scala.annotation.targetName
 import u06.utils.MSet
 
 object PetriNet:
@@ -22,6 +23,7 @@ object PetriNet:
 
   // fancy syntax to create transition rules
   extension [P](self: Marking[P])
-    def ~~> (y: Marking[P]) = Trn(self, y, MSet())
+    @targetName("trn")
+    def ~~>(y: Marking[P]): Trn[P] = Trn(self, y, MSet())
   extension [P](self: Trn[P])
-    def ^^^ (z: Marking[P]) = self.copy(inh = z)
+    def ^^^ (z: Marking[P]): Trn[P] = self.copy(inh = z)
