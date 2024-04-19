@@ -23,4 +23,4 @@ object StochasticChannelExperiment extends App with de.sciss.chart.module.Charti
 
   given ChartTheme = ChartTheme.Default
   val chart = de.sciss.chart.api.XYLineChart(data)
-  chart.show("P")
+  chart.show("Probability")

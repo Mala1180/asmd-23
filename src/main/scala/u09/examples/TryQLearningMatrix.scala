@@ -1,11 +1,11 @@
-package pc.rl.examples
+package u09.examples
 
-import pc.rl.model.QMatrix
+import u09.model.QMatrix
 
 object TryQMatrix extends App :
 
-  import pc.rl.model.QMatrix.Action.*
-  import pc.rl.model.QMatrix.*
+  import u09.model.QMatrix.Move.*
+  import u09.model.QMatrix.*
 
   val rl: QMatrix.Facade = Facade(
     width = 5,

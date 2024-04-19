@@ -21,7 +21,7 @@ object DAPGossip:
   )
   val gossipCTMC = DAP.toCTMC[ID, Place](gossipRules)
   val net = Grids.createRectangularGrid(5, 5)
-  // an `a` initial on top left
+  // an `a` initial on top LEFT
   val state = State[ID,Place](MSet(Token((0, 0), A)), MSet(), net)
 
 @main def mainDAPGossip =
