@@ -1,6 +1,5 @@
 package scala.u06.examples
 
-export u06.modelling.PetriNet
 import scala.u06.modelling.*
 import u06.utils.MSet
 
