@@ -3,6 +3,8 @@ package u06.utils
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers.*
 
+import scala.u06.utils.MSet
+
 class MSetSpec extends AnyFunSuite:
 
   test("An empty MSet should have size 0"):

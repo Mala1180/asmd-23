@@ -4,7 +4,7 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers.*
 
 class SystemChannelSpec extends AnyFunSuite:
-  import u06.examples.SystemChannel.*
+  import scala.u06.examples.SystemChannel.*
 
   test("System Channel should properly identify normal forms"):
     channel.normalForm(IDLE) shouldBe false

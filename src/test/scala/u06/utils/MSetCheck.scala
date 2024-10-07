@@ -4,6 +4,8 @@ import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Prop.forAll
 import org.scalacheck.{Arbitrary, Properties}
 
+import scala.u06.utils.MSet
+
 object MSetCheck extends Properties("MSet"):
 
   given msetArbitrary[A:Arbitrary]: Arbitrary[MSet[A]] =
