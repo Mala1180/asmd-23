@@ -1,6 +1,6 @@
 package scala.u07.chemist
 
-import de.sciss.chart.api.*
+import de.sciss.chart.api.{ChartTheme, XYLineChart}
 import u07.modelling.{CTMC, SPN}
 import u07.utils.MSet
 
@@ -11,33 +11,62 @@ object Chemist extends App:
   enum Element:
     case A, B, D, E, X, Y
 
-  export Element.*
+  import Element.*
+
+  private val numberOfA: Int = 20
+  private val numberOfB: Int = 40
+
+  private val k1: Double = 1.0
+  private val k2: Double = 0.002
+  private val k3: Double = 0.01
+  private val k4: Double = 0.1
+
+  private val rateOfX: MSet[Element] => Double =
+    mset =>
+      val nA = mset.asList.count(_ == A)
+      k1 * nA
+
+  private val rateOfAutocatalyticReaction: MSet[Element] => Double =
+    mset =>
+      val nX = mset.asList.count(_ == X)
+      val nY = mset.asList.count(_ == Y)
+      k2 * nX * (nX - 1) * nY
+
+  private val rateOfConversionYD: MSet[Element] => Double =
+    mset =>
+      val nX = mset.asList.count(_ == X)
+      val nB = mset.asList.count(_ == B)
+      k3 * nX * nB
+
+  private val rateOfDegradation: MSet[Element] => Double =
+    mset =>
+      val nX = mset.asList.count(_ == X)
+      k4 * nX
 
   export u07.modelling.CTMCSimulation.*
   export u07.modelling.SPN.*
 
-  private val brussellatorPetriNet: SPN[Element] = SPN[Element](
-    Trn(MSet(A), m => 50.0, MSet(X), MSet()),
-    Trn(MSet(X, X, Y), m => 34.8, MSet(X, X, X), MSet()),
-    Trn(MSet(B, X), m => 30.0, MSet(Y, D), MSet()),
-    Trn(MSet(X), m => 3.0, MSet(E), MSet())
-  )
+  import u07.dsl.DSL.{*, given}
+  private val brussellatorSPN: SPN[Element] =
+    (from(A) to X withRate rateOfX) ++
+      (from(X, X, Y) to (X, X, X) withRate rateOfAutocatalyticReaction) ++
+      (from(B, X) to (Y, D) withRate rateOfConversionYD) ++
+      (from(X) to E withRate rateOfDegradation)
 
-  private val simulation = toCTMC(brussellatorPetriNet)
-    .newSimulationTrace(MSet.ofList(List.fill(20)(A) concat List.fill(40)(B)), new Random)
-    .take(100)
+  private val simulation = toCTMC(brussellatorSPN)
+    .newSimulationTrace(MSet.ofList(List.fill(numberOfA)(A) concat List.fill(numberOfB)(B)), new Random)
+    .take(200)
     .toList
 
-  simulation.foreach(event => event.state.asList.groupBy(identity).view.mapValues(_.size).toMap)
-
-  val dataX: Seq[(Double, Double)] =
+  private val dataX: Seq[(Double, Double)] =
     for event <- simulation
-    yield (event.time, event.state.asList.count(_ == X) * 1.0)
-  val dataY: Seq[(Double, Double)] =
+    yield (event.time, event.state.asList.count(_ == X))
+  private val dataY: Seq[(Double, Double)] =
     for event <- simulation
     yield (event.time, event.state.asList.count(_ == Y) * 1.0)
+
   given ChartTheme = ChartTheme.Default
-  val chartX = XYLineChart(dataX)
-  val chartY = XYLineChart(dataY)
-  chartX.show("Brussellator X")
-  chartY.show("Brussellator Y")
+  private val chartX = XYLineChart(dataX)
+  private val chartY = XYLineChart(dataY)
+  chartX.show("X")
+  chartY.show("Y")

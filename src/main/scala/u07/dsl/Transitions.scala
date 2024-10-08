@@ -18,6 +18,7 @@ object Transitions extends App:
   extension [P](trn: Trn[P])
     infix def to(finalPlaces: P*): Trn[P] = trn.copy(eff = MSet.ofList(finalPlaces.toList))
     infix def withRate(rate: Double): Trn[P] = trn.copy(rate = _ => rate)
+    infix def withRate(rate: MSet[P] => Double): Trn[P] = trn.copy(rate = rate)
     infix def inhibitedBy(inhibitors: P*): Trn[P] = trn.copy(inh = MSet.ofList(inhibitors.toList))
 
   extension [P](spn: SPN[P])

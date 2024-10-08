@@ -11,7 +11,7 @@ lazy val root = (project in file("."))
       "org.scalacheck" %% "scalacheck" % "1.17.0",
       ("de.sciss" %% "scala-chart" % "0.8.0").cross(CrossVersion.for2_13Use3),
       "io.cucumber" %% "cucumber-scala" % "8.14.1" % Test,
-      "org.scala-lang" %% "scala3-compiler" % languageVersion
+      "org.scala-lang" %% "scala3-compiler" % languageVersion,
     ),
     Compile / scalaSource := baseDirectory.value / "src" / "main",
     Test / scalaSource := baseDirectory.value / "src" / "test"
