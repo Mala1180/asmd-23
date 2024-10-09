@@ -5,7 +5,7 @@ ThisBuild / scalaVersion := languageVersion
 
 lazy val root = (project in file("."))
   .settings(
-    name := "course-asmd23-models",
+    name := "asmd-23",
     libraryDependencies ++= Seq(
       "org.scalatest" %% "scalatest" % "3.2.12" % Test,
       "org.scalacheck" %% "scalacheck" % "1.17.0",
