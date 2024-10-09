@@ -1,26 +1,31 @@
 package spn.chemist
 
-import de.sciss.chart.api.{ChartTheme, XYLineChart}
+import de.sciss.chart.api.{XYSeries, XYSeriesCollection}
+import org.jfree.chart.plot.PlotOrientation
+import org.jfree.chart.{ChartFactory, ChartPanel}
 import spn.SPN
 import u07.modelling.CTMC
 import utils.MSet
 
 import java.util.Random
+import javax.swing.JFrame
 
 object Chemist extends App:
 
-  enum Element:
+  private enum Element:
     case A, B, D, E, X, Y
 
   import Element.*
 
-  private val numberOfA: Int = 20
-  private val numberOfB: Int = 40
+  private val numberOfA: Int = 1000
+  private val numberOfB: Int = 3000
+  private val numberOfX: Int = 1000
+  private val numberOfY: Int = 1000
 
-  private val k1: Double = 1.0
-  private val k2: Double = 0.002
-  private val k3: Double = 0.01
-  private val k4: Double = 0.1
+  private val k1: Double = 1.0 // 1.0
+  private val k2: Double = 1.0 // 0.002
+  private val k3: Double = 1.0 // 0.01
+  private val k4: Double = 1.0 // 0.1
 
   private val rateOfX: MSet[Element] => Double =
     mset =>
@@ -48,26 +53,58 @@ object Chemist extends App:
   export SPN.*
 
   import spn.dsl.DSL.{*, given}
+//  private val brussellatorSPN: SPN[Element] =
+//    (from(A) to X withRate rateOfX) ++
+//      (from(X, X, Y) to (X, X, X) withRate rateOfAutocatalyticReaction) ++
+//      (from(B, X) to (Y, D) withRate rateOfConversionYD) ++
+//      (from(X) to E withRate rateOfDegradation)
+
   private val brussellatorSPN: SPN[Element] =
-    (from(A) to X withRate rateOfX) ++
-      (from(X, X, Y) to (X, X, X) withRate rateOfAutocatalyticReaction) ++
-      (from(B, X) to (Y, D) withRate rateOfConversionYD) ++
-      (from(X) to E withRate rateOfDegradation)
+    (from(A) to X withRate 1) ++
+      (from(X, X, Y) to (X, X, X) withRate 1) ++
+      (from(B, X) to (Y, D) withRate 1) ++
+      (from(X) to E withRate 1)
 
   private val simulation = toCTMC(brussellatorSPN)
-    .newSimulationTrace(MSet.ofList(List.fill(numberOfA)(A) concat List.fill(numberOfB)(B)), new Random)
-    .take(200)
+    .newSimulationTrace(
+      MSet.ofList(
+        List.fill(numberOfA)(A)
+          concat List.fill(numberOfB)(B)
+          concat List.fill(numberOfX)(X)
+          concat List.fill(numberOfY)(Y)
+      ),
+      new Random
+    )
+    .take(300)
     .toList
 
-  private val dataX: Seq[(Double, Double)] =
-    for event <- simulation
-    yield (event.time, event.state.asList.count(_ == X))
-  private val dataY: Seq[(Double, Double)] =
-    for event <- simulation
-    yield (event.time, event.state.asList.count(_ == Y) * 1.0)
+  private val dataX = new XYSeries("X")
+  for event <- simulation
+  yield dataX.add(event.time, event.state.asList.count(_ == X))
 
-  given ChartTheme = ChartTheme.Default
-  private val chartX = XYLineChart(dataX)
-  private val chartY = XYLineChart(dataY)
-  chartX.show("X")
-  chartY.show("Y")
+  private val dataY = new XYSeries("Y")
+  for event <- simulation
+  yield dataY.add(event.time, event.state.asList.count(_ == Y))
+
+  private val dataset = new XYSeriesCollection()
+  dataset.addSeries(dataX) // Add the first line
+  dataset.addSeries(dataY) // Add the second line
+
+  private val chart = ChartFactory.createXYLineChart(
+    "Brussellator",
+    "Time",
+    "Molecules",
+    dataset,
+    PlotOrientation.VERTICAL,
+    true, // Include legend
+    true, // Tooltips
+    false // URLs
+  )
+  chart.getXYPlot.getRangeAxis.setRange(950, 1050)
+
+  private val chartPanel = new ChartPanel(chart)
+
+  private val frame = new JFrame("Scala-Chart Multi-Line Example")
+  frame.setContentPane(chartPanel)
+  frame.pack()
+  frame.setVisible(true)
