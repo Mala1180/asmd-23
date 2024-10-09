@@ -1,4 +1,4 @@
-package u07.dsl
+package spn.dsl
 
 object DSL:
   export Conversions.given

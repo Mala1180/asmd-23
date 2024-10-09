@@ -1,6 +1,6 @@
-package u07.dsl
+package spn.dsl
 
-import u07.modelling.SPN.{SPN, Trn}
+import spn.SPN.{SPN, Trn}
 
 object Conversions:
 

@@ -1,7 +1,8 @@
-package u07.modelling
+package spn
 
-import u07.utils.MSet
+import u07.modelling.CTMC
 import u07.modelling.CTMC.*
+import utils.MSet
 
 object SPN:
 

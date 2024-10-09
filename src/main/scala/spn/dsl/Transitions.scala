@@ -1,7 +1,7 @@
-package u07.dsl
+package spn.dsl
 
-import u07.modelling.SPN.{SPN, Trn}
-import u07.utils.MSet
+import spn.SPN.{SPN, Trn}
+import utils.MSet
 
 import scala.annotation.targetName
 

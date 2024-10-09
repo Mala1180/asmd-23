@@ -1,10 +1,10 @@
-package scala.u08.utils
+package u08.utils
 
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers.*
 import org.scalactic.Tolerance.convertNumericToPlusOrMinusWrapper
 
-import scala.u08.utils.Stochastics.{*, given}
+import u08.utils.Stochastics.{*, given}
 
 class StochasticsSpec extends AnyFunSuite:
 

@@ -1,4 +1,4 @@
-package scala.u08.utils
+package u08.utils
 
 object Grids:
   

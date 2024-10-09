@@ -13,8 +13,8 @@ lazy val root = (project in file("."))
       "io.cucumber" %% "cucumber-scala" % "8.14.1" % Test,
       "org.scala-lang" %% "scala3-compiler" % languageVersion,
     ),
-    Compile / scalaSource := baseDirectory.value / "src" / "main",
-    Test / scalaSource := baseDirectory.value / "src" / "test"
+    Compile / scalaSource := baseDirectory.value / "src" / "main" / "scala",
+    Test / scalaSource := baseDirectory.value / "src" / "test" / "scala",
   )
 
 enablePlugins(CucumberPlugin)

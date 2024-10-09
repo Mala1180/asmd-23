@@ -1,8 +1,9 @@
-package scala.u07.chemist
+package spn.chemist
 
 import de.sciss.chart.api.{ChartTheme, XYLineChart}
-import u07.modelling.{CTMC, SPN}
-import u07.utils.MSet
+import spn.SPN
+import u07.modelling.CTMC
+import utils.MSet
 
 import java.util.Random
 
@@ -44,9 +45,9 @@ object Chemist extends App:
       k4 * nX
 
   export u07.modelling.CTMCSimulation.*
-  export u07.modelling.SPN.*
+  export SPN.*
 
-  import u07.dsl.DSL.{*, given}
+  import spn.dsl.DSL.{*, given}
   private val brussellatorSPN: SPN[Element] =
     (from(A) to X withRate rateOfX) ++
       (from(X, X, Y) to (X, X, X) withRate rateOfAutocatalyticReaction) ++

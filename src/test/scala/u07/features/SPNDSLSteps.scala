@@ -1,10 +1,10 @@
-package scala.u07.features
+package u07.features
 
 import io.cucumber.scala.{EN, ScalaDsl}
 import org.scalatest.matchers.should.Matchers.*
-import u07.dsl.Reflection.reflect
-import u07.modelling.SPN.SPN
-import u07.utils.MSet
+import spn.dsl.Reflection.reflect
+import spn.SPN.SPN
+import utils.MSet
 
 import scala.compiletime.uninitialized
 

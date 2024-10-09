@@ -1,7 +1,7 @@
 package u08.examples
 
 import scala.math.BigDecimal.double2bigDecimal
-import scala.u08.utils.Time
+import u08.utils.Time
 
 object StochasticChannelExperiment extends App with de.sciss.chart.module.Charting:
   import u08.modelling.CTMCExperiment.*

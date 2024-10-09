@@ -4,7 +4,7 @@ import u08.modelling.{CTMC, CTMCExperiment}
 import u08.modelling.CTMC.*
 import scala.math.BigDecimal.double2bigDecimal
 import java.util.Random
-import scala.u08.utils.Time
+import u08.utils.Time
 
 object SimpleExponentialExperiment extends App with de.sciss.chart.module.Charting:
 

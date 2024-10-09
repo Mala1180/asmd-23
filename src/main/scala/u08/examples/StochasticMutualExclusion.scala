@@ -2,7 +2,7 @@ package u08.examples
 
 import u08.modelling.{CTMC, SPN}
 import java.util.Random
-import scala.u08.utils.MSet
+import utils.MSet
 
 object StochasticMutualExclusion extends App:
   // Specification of my data-type for states
