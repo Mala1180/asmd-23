@@ -1,4 +1,4 @@
-package u07.features
+package features
 
 import io.cucumber.scala.{EN, ScalaDsl}
 import org.scalatest.matchers.should.Matchers.*
@@ -11,7 +11,7 @@ import scala.compiletime.uninitialized
 object SPNDSLSteps extends ScalaDsl with EN:
 
   var input: String = uninitialized
-  var spn: Option[SPN[String]] = None
+  var spn: Option[SPN[Any]] = None
   var error: Exception = uninitialized
 
   Given("the input {string}")((strSpn: String) => input = strSpn)

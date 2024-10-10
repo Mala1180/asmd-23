@@ -12,12 +12,14 @@ lazy val root = (project in file("."))
       ("de.sciss" %% "scala-chart" % "0.8.0").cross(CrossVersion.for2_13Use3),
       "io.cucumber" %% "cucumber-scala" % "8.14.1" % Test,
       "org.scala-lang" %% "scala3-compiler" % languageVersion,
+      "com.lihaoyi" %% "requests" % "0.9.0",
+      "com.lihaoyi" %% "upickle" % "3.1.0",
     ),
     Compile / scalaSource := baseDirectory.value / "src" / "main" / "scala",
     Test / scalaSource := baseDirectory.value / "src" / "test" / "scala",
   )
 
 enablePlugins(CucumberPlugin)
-CucumberPlugin.glues := List("scala.u07.features")
+CucumberPlugin.glues := List("features")
 // Any environment properties you want to override/set.
 CucumberPlugin.envProperties := Map("K" -> "2049")
