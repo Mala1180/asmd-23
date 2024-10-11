@@ -2,15 +2,12 @@ package spn.llm
 
 import requests.Response
 
-object OllamaClient extends App:
+object OllamaClient:
 
   enum Model(val name: String):
     case Llama3 extends Model("spn-llama3-model")
     case Gemma2 extends Model("spn-gemma2-model")
-
-  private val prompt =
-    "Provide me a Stochastic Petri Net representing a Stochastic Mutual Exclusion system with various rates"
-
+  
   def askToModel(model: Model, prompt: String): String =
     val ollamaUrl = "http://localhost:11434/api/generate"
     val data: String = s"""{ "model": "${model.name}", "prompt": "$prompt", "stream": false }"""
