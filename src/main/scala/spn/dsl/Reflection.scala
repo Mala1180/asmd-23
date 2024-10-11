@@ -10,7 +10,7 @@ object Reflection:
     * @return the [[SPN]]
     * @throws IllegalArgumentException if the input is malformed
     */
-  def reflect(input: String): SPN[Any] =
+  def reflect(input: String): Option[SPN[Any]] =
     if input.isBlank || input.isEmpty then throw new IllegalArgumentException("Empty input")
     else
       val imports =
@@ -20,7 +20,7 @@ object Reflection:
       try
         val res = dotty.tools.repl.ScriptEngine().eval(imports + input)
         res match
-          case spn: SPN[_] => spn.asInstanceOf[SPN[Any]]
-          case trn: Trn[_] => Set(trn.asInstanceOf[Trn[Any]])
-          case _ => throw new IllegalArgumentException("Invalid SPN")
-      catch case e: Exception => throw new IllegalArgumentException(e.getMessage)
+          case spn: SPN[_] => Some(spn.asInstanceOf[SPN[Any]])
+          case trn: Trn[_] => Some(Set(trn.asInstanceOf[Trn[Any]]))
+          case _ => None
+      catch case e: Exception => None

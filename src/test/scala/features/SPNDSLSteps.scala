@@ -17,7 +17,7 @@ object SPNDSLSteps extends ScalaDsl with EN:
   Given("the input {string}")((strSpn: String) => input = strSpn)
 
   When("I create the SPN") {
-    try spn = Some(reflect(input))
+    try spn = reflect(input)
     catch case e: IllegalArgumentException => error = IllegalArgumentException(e.getMessage)
   }
 
