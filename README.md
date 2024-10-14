@@ -26,7 +26,7 @@ import spn.dsl.DSL.{given, *}
 The DSL retains the flexibility to create `SPN` for any generic type.
 
 ```scala 3
-val spn1: SPN[Int] = (from(1, 2) to 3 withRate 1.0) and (from(4, 5) to 6 withRate 2.0)
+val spn1: SPN[Int] = (from(1) to 2 withRate 1.0) and (from(3, 4) to 5 withRate 2.0)
 val spn2: SPN[String] = from("a", "b") to "c" withRate 1.0 inhibitedBy "d"
 
 enum Whatever:
@@ -55,13 +55,13 @@ enum Place:
 import Place.*
 
 val rwSPN: SPN[Place] =
-  (from(START) to CHOICE withRate 1.0) ++
-    (from(CHOICE) to WAIT_READ withRate 1.0) ++
-    (from(CHOICE) to WAIT_WRITE withRate 1.0) ++
-    (from(WAIT_READ, ME) to(ME, READING) withRate 1.0) ++
+  (from(START) to CHOICE) ++
+    (from(CHOICE) to WAIT_READ withRate 0.5) ++
+    (from(CHOICE) to WAIT_WRITE withRate 1.5) ++
+    (from(WAIT_READ, ME) to(ME, READING) withRate 10.0) ++
     (from(WAIT_WRITE, ME) to WRITING withRate 1.0 inhibitedBy READING) ++
-    (from(READING) to START withRate 1.0) ++
-    (from(WRITING) to(START, ME) withRate 1.0)
+    (from(READING) to START) ++
+    (from(WRITING) to(START, ME))
 ```
 
 In the following figures are reported the charts representing two different simulations of the Readers and Writers
@@ -88,7 +88,7 @@ initial tokens, to ensure that properties hold for different simulations.
 Chemical reactions are intrinsically stochastic, and can be modelled as Continuous Time Markov Chains, and so as
 Stochastic Petri Nets.
 
-To make some tests, the _Brussellator_ model has been reified as a `SPN`, exploiting the DSL:
+To make some tests, the _[Brussellator](https://en.wikipedia.org/wiki/Brusselator)_ model has been reified as a `SPN`, exploiting the DSL:
 
 ```scala 3
 enum Element:
