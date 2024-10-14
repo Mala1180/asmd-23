@@ -1,4 +1,4 @@
-package spn.chemist
+package spn.examples
 
 import de.sciss.chart.api.{XYSeries, XYSeriesCollection}
 import org.jfree.chart.plot.PlotOrientation

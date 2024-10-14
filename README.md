@@ -1,2 +1,13 @@
 # asmd-23
-Tasks covering some topics of Advanced Software Modeling and Design course @ UniBo
+
+
+## Stochastic Modelling
+
+### Stochastic Petri Nets
+
+### Domain Specific Language
+
+
+## Large Langage Models
+
+### 
