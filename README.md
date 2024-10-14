@@ -23,7 +23,7 @@ One line import to use the DSL:
 import spn.dsl.DSL.{given, *}
 ```
 
-The DSL keeps the possibility to create `SPN` of whatever type:
+The DSL retains the flexibility to create `SPN` for any generic type.
 
 ```scala 3
 val spn1: SPN[Int] = (from(1, 2) to 3 withRate 1.0) and (from(4, 5) to 6 withRate 2.0)
