@@ -18,9 +18,9 @@ object GeneratedSMECheck extends Properties("Stochastic Mutual Exclusion SPN"):
     s"Provide me a Stochastic Petri Net representing a Stochastic Mutual Exclusion system with various rates. " +
       s"Mandatory Requirement: The Critical section place must be named $criticalSectionPlace",
     s"Give me a SPN representing a Stochastic Mutual Exclusion system" +
-      s"The Critical section place must be named $criticalSectionPlace"
-//    s"Can you provide me a SPN representing a Stochastic Mutual Exclusion system using inhibitor arcs?" +
-//      s"The Critical section place must be named $criticalSectionPlace"
+      s"The Critical section place must be named $criticalSectionPlace",
+    s"Can you provide me a SPN representing a Stochastic Mutual Exclusion system using inhibitor arcs?" +
+      s"The Critical section place must be named $criticalSectionPlace",
   )
   val models: Gen[Model] = Gen.oneOf(Set(Model.Gemma2))
 

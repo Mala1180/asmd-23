@@ -26,7 +26,7 @@ object ReadersWriters extends App:
       (from(READING) to START withRate exitReadingRate) ++
       (from(WRITING) to (START, ME) withRate exitWritingRate)
 
-  private val rwSPN: SPN[Place] = createRWSPN(100, 1.0, 0.01, 1.0)
+  private val rwSPN: SPN[Place] = createRWSPN(1, 100, 1, 0.01)
   def simulation: List[Event[MSet[Place]]] = toCTMC(rwSPN)
     .newSimulationTrace(MSet(START, START, START, START, ME), java.util.Random())
     .take(100)
