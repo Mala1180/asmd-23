@@ -19,6 +19,8 @@ object Reflection:
           |""".stripMargin
       try
         val res = dotty.tools.repl.ScriptEngine().eval(imports + input)
+        println("Reflection input: \n" + input)
+        println("Result: \n" + res)
         res match
           case spn: SPN[_] => Some(spn.asInstanceOf[SPN[Any]])
           case trn: Trn[_] => Some(Set(trn.asInstanceOf[Trn[Any]]))
